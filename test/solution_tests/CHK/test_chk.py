@@ -29,7 +29,11 @@ class TestCheckout:
         assert check.get_price("ABCD") == 50 + 30 + 20 + 15
 
 
+class TestBadInput:
+    def test_bad_input(self):
+        check = checkout_solution.Checkout()
+        assert check.get_price("AAAaAcBBBCCD") == -1
+
 class TestCheckoutCall:
     def test_checkout_call(self):
         assert checkout_solution.checkout("AAAABBBCCD") == 180 + 75 + 40 + 15
-

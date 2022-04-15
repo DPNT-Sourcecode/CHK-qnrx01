@@ -30,13 +30,10 @@ class Checkout:
     def get_price(self, product_list: str):
         price = 0
         for product, occurrences in itertools.groupby(product_list):
+            if product not in self.products:
+                return -1
             price += self.products[product].get_price(len(list(occurrences)))
         return price
-
-
-
-
-
 
 
 
