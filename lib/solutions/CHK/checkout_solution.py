@@ -38,3 +38,5 @@ class Checkout:
 
 
 
+check = Checkout()
+check.get_price("ABCDABCD") == 215
