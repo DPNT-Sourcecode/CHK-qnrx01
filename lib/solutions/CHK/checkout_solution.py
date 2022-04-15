@@ -57,13 +57,13 @@ class GroupDiscount:
         sorted_product_list = sorted(product_list, key=lambda x: products[x].price)[::-1]
         ct = sum(1 for v in sorted_product_list if v in self.group_buy)
         offers = ct // self.qty
-        for _ in range(offers):
+        for _ in range(3*offers):
             for v in sorted_product_list:
                 if v in sorted_product_list:
-                    product_list.remove(v)
+                    sorted_product_list.remove(v)
                     break
         self.total_price = offers * 45
-        return product_list
+        return sorted_product_list
 
     def get_group_price(self):
         return self.total_price
@@ -96,6 +96,6 @@ class Checkout:
 
 
 check = Checkout()
-check.get_price("EE")
+check.get_price("STXYZ")
 
 
