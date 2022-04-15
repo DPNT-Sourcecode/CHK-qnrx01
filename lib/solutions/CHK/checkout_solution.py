@@ -53,10 +53,12 @@ class SpecialOfferFree:
         self.discount = 2
 
     def remove_free_products(self, product_list, products):
-        ct = list(product_list).count(self.product)
+        ct = product_list.count(self.product)
         offers = ct // self.qty
-
-        return -1 * products[self.second_product].get_price(discount_qty)
+        for _ in range(offers):
+            if self.second_product in product_list:
+                product_list.remove(self.second_product)
+        return product_list
 
 
 class Checkout:
@@ -65,17 +67,19 @@ class Checkout:
         self.products = { k:Product(*v) for k, v in self.price_list.items() }
 
     def get_price(self, product_list: str):
+        product_list = list(product_list)
         price = 0
+        specials = [SpecialOfferFree('E', 2, 'B')]
+        for special in specials:
+            product_list = special.remove_free_products(product_list, self.products)
         for product in set(product_list):
             if product not in self.products:
                 return -1
-            cnt = list(product_list).count(product)
+            cnt = product_list.count(product)
             price += self.products[product].get_price(cnt)
-        specials = [SpecialOffer('E', 2, 'B')]
-        for special in specials:
-            price += special.get_discount(product_list, self.products)
         return price
 
 
 check = Checkout()
 check.get_price("EE")
+
