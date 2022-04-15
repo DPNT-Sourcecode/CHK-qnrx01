@@ -1,4 +1,4 @@
-from itertools import groupby
+import itertools
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -26,7 +26,9 @@ class Checkout:
         self.products = { k:Product(v*) for k, v in self.price_list.items() }
 
     def get_price(self, product_list: str):
-        prod_dict = { 'A':0,'B':0 }
+        price = 0
+        for product, occurences
+
 
 
 
