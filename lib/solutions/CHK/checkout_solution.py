@@ -97,4 +97,5 @@ class Checkout:
 
 
 check = Checkout()
-check.get_price("STXYZ")
+inp = "AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTWWUUVVXXYYZZ"
+check.get_price(inp)
