@@ -48,17 +48,25 @@ class SpecialOfferFree:
 
 class GroupDiscount:
     def __init__(self,qty = 3,price = 45, group_buy=["S","T","X","Y","Z"]):
-        self.group_by = group_by
+        self.group_buy = group_buy
         self.qty = qty
         self.price = price
+        self.total_price = 0
 
     def remove_offer_products(self, product_list, products):
-        sorted_product_list = sorted(product_list, lambda x: products[x].price)[::-1]
+        sorted_product_list = sorted(product_list, key=lambda x: products[x].price)[::-1]
+        ct = sum(1 for v in sorted_product_list if v in self.group_buy)
         offers = ct // self.qty
         for _ in range(offers):
-            if self.second_product in product_list:
-                product_list.remove(self.second_product)
+            for v in sorted_product_list:
+                if v in sorted_product_list:
+                    product_list.remove(v)
+                    break
+        self.total_price = offers * 45
         return product_list
+
+    def get_group_price(self):
+        return self.total_price
 
 
 class Checkout:
@@ -77,14 +85,17 @@ class Checkout:
         specials = [SpecialOfferFree(*x) for x in [('E', 2, 'B'), ('N', 3, 'M'), ('R', 3, 'Q')]]
         for special in specials:
             product_list = special.remove_free_products(product_list, self.products)
+        gd = GroupDiscount()
+        product_list = gd.remove_offer_products(product_list, self.products)
         for product in set(product_list):
             if product not in self.products:
                 return -1
             cnt = product_list.count(product)
             price += self.products[product].get_price(cnt)
-        return price
+        return price + gd.get_group_price()
 
 
 check = Checkout()
 check.get_price("EE")
+
 
