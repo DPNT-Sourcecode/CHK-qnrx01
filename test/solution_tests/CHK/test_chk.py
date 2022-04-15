@@ -56,10 +56,25 @@ class TestCheckout:
         check = checkout_solution.Checkout()
         assert check.get_price("EE") == 80
 
-    def test_checkout9(self):
+    def test_checkout10(self):
         check = checkout_solution.Checkout()
         assert check.get_price("ABCDEABCDE") == 100 + 30 + 40 + 30 + 80
 
+    def test_checkout11(self):
+        check = checkout_solution.Checkout()
+        assert check.get_price("FF") == 20
+
+    def test_checkout12(self):
+        check = checkout_solution.Checkout()
+        assert check.get_price("FFF") == 20
+
+    def test_checkout13(self):
+        check = checkout_solution.Checkout()
+        assert check.get_price("FFFF") == 30
+
+    def test_checkout14(self):
+        check = checkout_solution.Checkout()
+        assert check.get_price("FFFFFF") == 40
 
 class TestBadInput:
     def test_bad_input(self):
@@ -69,5 +84,6 @@ class TestBadInput:
 class TestCheckoutCall:
     def test_checkout_call(self):
         assert checkout_solution.checkout("AAAABBBCCD") == 180 + 75 + 40 + 15
+
 
 
