@@ -8,7 +8,7 @@ def checkout(skus):
 
 
 class Product:
-    def __init__(self, price, offer_qty=0, offer_price=0, offer2_qty=0, offer2_price=0 ):
+    def __init__(self, price, offer_qty=0, offer_price=0, offer2_qty=0, offer2_price=0):
         self.price = price
         self.offer_qty = offer_qty
         self.offer_price = offer_price
@@ -23,8 +23,8 @@ class Product:
             normal = qty % self.offer_qty
             return self.offer_price * offers + self.price * normal
         else:
-            offers2 = qty // self.offer_qty2
-            remainder = qty % self.offer_qty2
+            offers2 = qty // self.offer2_qty
+            remainder = qty % self.offer2_qty
             offers = remainder // self.offer_qty
             normal = remainder % self.offer_qty
             return self.offer2_price * offers2 + self.offer_price * offers + self.price * normal
@@ -32,7 +32,7 @@ class Product:
 
 class Checkout:
     def __init__(self):
-        self.price_list = { 'A':(50, 3, 130, 5, 200), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0),'E':(40,3,80)}
+        self.price_list = {'A':(50, 3, 130, 5, 200), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0),'E':(40,3,80)}
         self.products = { k:Product(*v) for k, v in self.price_list.items() }
 
     def get_price(self, product_list: str):
@@ -46,5 +46,4 @@ class Checkout:
 
 
 
-
-
+checkout("AAAABBBCCD")
