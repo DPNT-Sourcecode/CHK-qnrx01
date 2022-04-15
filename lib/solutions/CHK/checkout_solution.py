@@ -63,13 +63,18 @@ class SpecialOfferFree:
 
 class Checkout:
     def __init__(self):
-        self.price_list = {'A':(50, 3, 130, 5, 200), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0),'E':(40,0,0), 'F':(10,3,20), 'G':(20, 0, 0 ),'H':(10, 3, 45, 10, 80 ),'I':(35, 0, 0 ),'J':(60, 0, 0 ),'K':(80, 2, 150 ),'L':(90, 0, 0 ),'M':(15, 0, 0 ),'N':(40, 0, 0 ),'O':(10, 0, 0 ),'P':(50, 5, 200 ),'Q':(30, 3, 80 ),'R':(50, 0, 0 ),'S':(30, 0, 0 ),'T':(20, 0, 0 ),'U':(40, 3, 80 ),'V':(50, 2, 90, 3, 130 ),'W':(20, 0, 0 ),'X':(90, 0, 0 ),'Y':(10, 0, 0 ),'Z':(50, 0, 0 ) }
+        self.price_list = {'A': (50, 3, 130, 5, 200), 'B': (30, 2, 45), 'C': (20, 0, 0), 'D': (15, 0, 0),
+                           'E': (40, 0, 0), 'F': (10, 3, 20), 'G': (20, 0, 0), 'H': (10, 5, 45, 10, 80),
+                           'I': (35, 0, 0), 'J': (60, 0, 0), 'K': (80, 2, 150), 'L': (90, 0, 0), 'M': (15, 0, 0),
+                           'N': (40, 0, 0), 'O': (10, 0, 0), 'P': (50, 5, 200), 'Q': (30, 3, 80), 'R': (50, 0, 0),
+                           'S': (30, 0, 0), 'T': (20, 0, 0), 'U': (40, 3, 80), 'V': (50, 2, 90, 3, 130),
+                           'W': (20, 0, 0), 'X': (90, 0, 0), 'Y': (10, 0, 0), 'Z': (50, 0, 0)}
         self.products = { k:Product(*v) for k, v in self.price_list.items() }
 
     def get_price(self, product_list: str):
         product_list = list(product_list)
         price = 0
-        specials = [SpecialOfferFree('E', 2, 'B')]
+        specials = [SpecialOfferFree(*x) for x in [('E', 2, 'B'), ('N', 3, 'M'), ('R', 3, 'Q')]]
         for special in specials:
             product_list = special.remove_free_products(product_list, self.products)
         for product in set(product_list):
@@ -82,3 +87,4 @@ class Checkout:
 
 check = Checkout()
 check.get_price("EE")
+
