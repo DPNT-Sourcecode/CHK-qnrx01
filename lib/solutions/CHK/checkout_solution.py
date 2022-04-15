@@ -58,8 +58,8 @@ class GroupDiscount:
         ct = sum(1 for v in sorted_product_list if v in self.group_buy)
         offers = ct // self.qty
         for _ in range(3*offers):
-            for v in self.group_buy:
-                if v in sorted_product_list:
+            for v in sorted_product_list:
+                if v in self.group_buy:
                     sorted_product_list.remove(v)
                     break
         self.total_price = offers * 45
@@ -99,4 +99,5 @@ class Checkout:
 check = Checkout()
 inp = "STXYZ"
 check.get_price(inp)
+
 
