@@ -30,6 +30,21 @@ class Product:
             return self.offer2_price * offers2 + self.offer_price * offers + self.price * normal
 
 
+class SpecialOffer:
+    def __init__(self, product, qty, second_product):
+        self.product = product
+        self.qty = qty
+        self.second_product = second_product
+        self.discount = 2
+
+    def get_discount(self, product_list, products):
+        ct = list(product_list).count(self.product)
+        offers = ct % self.qty
+        second_product_ct = list(product_list).count(self.product)
+        discount_qty = min(offers, second_product_ct)
+        return -1 * products[self.second_product].get_price(discount_qty)
+
+
 class Checkout:
     def __init__(self):
         self.price_list = {'A':(50, 3, 130, 5, 200), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0),'E':(40,3,80)}
@@ -42,8 +57,11 @@ class Checkout:
                 return -1
             cnt = list(product_list).count(product)
             price += self.products[product].get_price(cnt)
+        specials = [SpecialOffer('E', 2, 'B')]
+        for special in specials:
+            price += special.get_discount(product_list, self.products)
         return price
 
 
-
-checkout("AAAABBBCCD")
+check = Checkout()
+check.get_price("EEB")
