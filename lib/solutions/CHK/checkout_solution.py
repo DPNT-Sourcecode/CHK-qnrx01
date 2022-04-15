@@ -59,12 +59,12 @@ class Checkout:
             price += self.products[product].get_price(cnt)
         specials = [SpecialOffer('E', 2, 'B')]
         for special in specials:
-            if cnt>0:
-                price += special.get_discount(product_list, self.products)
+            price += special.get_discount(product_list, self.products)
         return price
 
 
 check = Checkout()
 check.get_price("EE")
+
 
 
