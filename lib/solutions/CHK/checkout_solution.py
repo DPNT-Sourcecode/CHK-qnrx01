@@ -30,21 +30,6 @@ class Product:
             return self.offer2_price * offers2 + self.offer_price * offers + self.price * normal
 
 
-class SpecialOffer:
-    def __init__(self, product, qty, second_product):
-        self.product = product
-        self.qty = qty
-        self.second_product = second_product
-        self.discount = 2
-
-    def get_discount(self, product_list, products):
-        ct = list(product_list).count(self.product)
-        offers = ct // self.qty
-        second_product_ct = list(product_list).count(self.second_product)
-        discount_qty = min(offers, second_product_ct)
-        return -1 * products[self.second_product].get_price(discount_qty)
-
-
 class SpecialOfferFree:
     def __init__(self, product, qty, second_product):
         self.product = product
@@ -54,6 +39,21 @@ class SpecialOfferFree:
 
     def remove_free_products(self, product_list, products):
         ct = product_list.count(self.product)
+        offers = ct // self.qty
+        for _ in range(offers):
+            if self.second_product in product_list:
+                product_list.remove(self.second_product)
+        return product_list
+
+
+class GroupDiscount:
+    def __init__(self,group=["S","T","X","Y",Z"],qty = 3,price = 45):
+        self.group = group
+        self.qty = qty
+        self.price = price
+
+    def remove_offer_products(self, product_list, products):
+        ct = sorted(product_list, lambda x: products[x].price
         offers = ct // self.qty
         for _ in range(offers):
             if self.second_product in product_list:
