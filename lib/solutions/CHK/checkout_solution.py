@@ -76,20 +76,21 @@ class Checkout:
                            'I': (35, 0, 0), 'J': (60, 0, 0), 'K': (80, 2, 150), 'L': (90, 0, 0), 'M': (15, 0, 0),
                            'N': (40, 0, 0), 'O': (10, 0, 0), 'P': (50, 5, 200), 'Q': (30, 3, 80), 'R': (50, 0, 0),
                            'S': (20, 0, 0), 'T': (20, 0, 0), 'U': (40, 4, 120), 'V': (50, 2, 90, 3, 130),
-                           'W': (20, 0, 0), 'X': (17, 0, 0), 'Y': (10, 0, 0), 'Z': (21, 0, 0)}
+                           'W': (20, 0, 0), 'X': (17, 0, 0), 'Y': (20, 0, 0), 'Z': (21, 0, 0)}
         self.products = { k:Product(*v) for k, v in self.price_list.items() }
 
     def get_price(self, product_list: str):
         product_list = list(product_list)
         price = 0
+        for product in set(product_list):
+            if product not in self.products:
+                return -1
         specials = [SpecialOfferFree(*x) for x in [('E', 2, 'B'), ('N', 3, 'M'), ('R', 3, 'Q')]]
         for special in specials:
             product_list = special.remove_free_products(product_list, self.products)
         gd = GroupDiscount()
         product_list = gd.remove_offer_products(product_list, self.products)
         for product in set(product_list):
-            if product not in self.products:
-                return -1
             cnt = product_list.count(product)
             price += self.products[product].get_price(cnt)
         return price + gd.get_group_price()
@@ -97,6 +98,7 @@ class Checkout:
 
 check = Checkout()
 check.get_price("STXYZ")
+
 
 
 
