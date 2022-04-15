@@ -22,12 +22,15 @@ class Product:
 
 class Checkout:
     def __init__(self):
-        self.price_list = { 'A':(50,3,1), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0)}
-        self.products = { k:Product(v*) for k, v in self.price_list.items() }
+        self.price_list = { 'A':(50,3,130), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0)}
+        self.products = { k:Product(*v) for k, v in self.price_list.items() }
 
     def get_price(self, product_list: str):
         price = 0
-        for product, occurences
+        for product, occurrences in itertools.groupby(product_list):
+            price += self.products[product].get_price(len(list(occurrences)))
+        return price
+
 
 
 
