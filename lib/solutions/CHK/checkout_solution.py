@@ -40,7 +40,7 @@ class SpecialOffer:
     def get_discount(self, product_list, products):
         ct = list(product_list).count(self.product)
         offers = ct // self.qty
-        second_product_ct = list(product_list).count(self.product)
+        second_product_ct = list(product_list).count(self.second_product)
         discount_qty = min(offers, second_product_ct)
         return -1 * products[self.second_product].get_price(discount_qty)
 
@@ -59,10 +59,12 @@ class Checkout:
             price += self.products[product].get_price(cnt)
         specials = [SpecialOffer('E', 2, 'B')]
         for special in specials:
-            price += special.get_discount(product_list, self.products)
+            if cnt>0:
+                price += special.get_discount(product_list, self.products)
         return price
 
 
 check = Checkout()
-check.get_price("EEB")
+check.get_price("EE")
+
 
