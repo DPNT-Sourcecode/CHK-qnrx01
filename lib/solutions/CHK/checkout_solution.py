@@ -24,7 +24,7 @@ class Product:
 
 class Checkout:
     def __init__(self):
-        self.price_list = { 'A':(50,3,130), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0)}
+        self.price_list = { 'A':(50,3,130), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0),'E':(40,3,80)}
         self.products = { k:Product(*v) for k, v in self.price_list.items() }
 
     def get_price(self, product_list: str):
@@ -35,6 +35,7 @@ class Checkout:
             cnt = list(product_list).count(product)
             price += self.products[product].get_price(cnt)
         return price
+
 
 
 
