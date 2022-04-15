@@ -1,9 +1,10 @@
 import itertools
 
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    raise NotImplementedError()
+    return Checkout().get_price(skus)
 
 
 class Product:
@@ -20,6 +21,7 @@ class Product:
             normal = qty % self.offer_qty
             return self.offer_price * offers + self.price * normal
 
+
 class Checkout:
     def __init__(self):
         self.price_list = { 'A':(50,3,130), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0)}
@@ -30,6 +32,7 @@ class Checkout:
         for product, occurrences in itertools.groupby(product_list):
             price += self.products[product].get_price(len(list(occurrences)))
         return price
+
 
 
 
