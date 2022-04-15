@@ -47,13 +47,13 @@ class SpecialOfferFree:
 
 
 class GroupDiscount:
-    def __init__(self,group=["S","T","X","Y",Z"],qty = 3,price = 45):
-        self.group = group
+    def __init__(self,qty = 3,price = 45, group_buy=["S","T","X","Y","Z"]):
+        self.group_by = group_by
         self.qty = qty
         self.price = price
 
     def remove_offer_products(self, product_list, products):
-        ct = sorted(product_list, lambda x: products[x].price
+        sorted_product_list = sorted(product_list, lambda x: products[x].price)[::-1]
         offers = ct // self.qty
         for _ in range(offers):
             if self.second_product in product_list:
@@ -87,3 +87,4 @@ class Checkout:
 
 check = Checkout()
 check.get_price("EE")
+
