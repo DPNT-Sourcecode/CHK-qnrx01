@@ -34,7 +34,7 @@ class TestCheckout:
 
     def test_checkout4(self):
         check = checkout_solution.Checkout()
-        assert check.get_price("ABCDABCDEE") == 215 + 80
+        assert check.get_price("ABCDABCDEE") == 215 + 80 - 30
 
     def test_checkout5(self):
         check = checkout_solution.Checkout()
@@ -60,5 +60,6 @@ class TestBadInput:
 class TestCheckoutCall:
     def test_checkout_call(self):
         assert checkout_solution.checkout("AAAABBBCCD") == 180 + 75 + 40 + 15
+
 
 

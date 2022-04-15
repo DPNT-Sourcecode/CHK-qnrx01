@@ -39,7 +39,7 @@ class SpecialOffer:
 
     def get_discount(self, product_list, products):
         ct = list(product_list).count(self.product)
-        offers = ct % self.qty
+        offers = ct // self.qty
         second_product_ct = list(product_list).count(self.product)
         discount_qty = min(offers, second_product_ct)
         return -1 * products[self.second_product].get_price(discount_qty)
@@ -47,7 +47,7 @@ class SpecialOffer:
 
 class Checkout:
     def __init__(self):
-        self.price_list = {'A':(50, 3, 130, 5, 200), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0),'E':(40,3,80)}
+        self.price_list = {'A':(50, 3, 130, 5, 200), 'B':(30,2,45),'C':(20,0,0),'D':(15,0,0),'E':(40,0,0)}
         self.products = { k:Product(*v) for k, v in self.price_list.items() }
 
     def get_price(self, product_list: str):
@@ -65,3 +65,4 @@ class Checkout:
 
 check = Checkout()
 check.get_price("EEB")
+
