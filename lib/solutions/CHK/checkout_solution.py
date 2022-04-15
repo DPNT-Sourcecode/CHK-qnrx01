@@ -82,5 +82,3 @@ class Checkout:
 
 check = Checkout()
 check.get_price("EE")
-
-
